@@ -20,3 +20,5 @@ steps:
       test-platform: <<parameters.test-platform>>
   - store_artifacts:
       path: src/results.xml
+  - store_artifacts:
+      path: src/test-log.txt
