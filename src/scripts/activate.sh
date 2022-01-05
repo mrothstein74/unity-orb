@@ -1,12 +1,12 @@
 check_env_variable_empty() {
-    if [ -z "$ACTIVATION_ULF_VAR_NAME" ]; then 
-        echo "${ACTIVATION_ULF_VAR_NAME} is missing. You must provide the base64 encoded ULF license file contents."
+    if [ -z "$ACTIVATION_ULF_ENC" ]; then 
+        echo "${ACTIVATION_ULF_ENC} is missing. You must provide the base64 encoded ULF license file contents."
         exit 1
     fi
 }
 
 decode_ulf() {
-    DECODED_ULF=$(echo "$ACTIVATION_ULF_VAR_NAME" | base64 --decode)
+    DECODED_ULF=$(echo "$ACTIVATION_ULF_ENC" | base64 --decode)
 }
 
 check_env_variable_empty
