@@ -1,12 +1,17 @@
 description: >
   Simple drop-in job to run tests for your Unity game.
 
-executor: default
+executor: 
+  name: default
+  tag: << parameters.tag >>
 
 parameters:
-  test-platform:
+  tag:
+    default: 2021.2.7f1-mac-mono-0.15
     type: string
+  test-platform:
     default: "PlayMode"
+    type: string
 
 steps:
   - checkout
