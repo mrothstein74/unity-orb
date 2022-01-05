@@ -18,3 +18,5 @@ steps:
   - activate
   - run-tests:
       test-platform: <<parameters.test-platform>>
+  - store_artifacts:
+      path: src/results.xml
