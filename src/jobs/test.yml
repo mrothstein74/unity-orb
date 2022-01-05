@@ -1,7 +1,7 @@
 description: >
   Simple drop-in job to run tests for your Unity game.
 
-executor: 
+executor:
   name: default
   tag: << parameters.tag >>
 
