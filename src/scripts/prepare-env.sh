@@ -3,6 +3,11 @@
 readonly base_dir="${CIRCLE_WORKING_DIRECTORY/\~/$HOME}"
 readonly unity_project_full_path="$base_dir/$PARAM_PROJECT_PATH"
 
+install_unity_windows() {
+  choco install -y unity-hub
+  /c/"Program Files"/"Unity Hub"/"Unity Hub.exe" -- --headless install --version "2021" --module windows-il2cpp --childModules
+}
+
 download_before_script() {
   curl --silent --location \
     --request GET \
@@ -24,6 +29,11 @@ create_manual_activation_file() {
 }
 
 check_license_and_editor_version() {
+  if [ "$OS_NAME" == "windows" ]; then
+    # Without this, "grep -P" will not work on Windows.
+    export LANG=C.UTF-8
+  fi
+
   local -r unity_project_version="$(grep -oP '(?<=m_EditorVersion: )[^\n]*' $unity_project_full_path/ProjectSettings/ProjectVersion.txt)"
   local -r unity_license_version="$(grep -oP '<ClientProvidedVersion Value\="\K.*?(?="/>)' <<< "$unity_license")"
   local -r unity_editor_version="$(cat $UNITY_PATH/version)"
@@ -91,6 +101,10 @@ resolve_unity_license() {
     exit 1
   fi
 }
+
+if [ "$OS_NAME" == "windows" ]; then
+  install_unity_windows
+fi
 
 # Expand environment name variable parameters.
 readonly unity_username="${!PARAM_UNITY_USERNAME_VAR_NAME}"
