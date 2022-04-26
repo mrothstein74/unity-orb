@@ -3,18 +3,6 @@
 readonly base_dir="${CIRCLE_WORKING_DIRECTORY/\~/$HOME}"
 readonly unity_project_full_path="$base_dir/$PARAM_PROJECT_PATH"
 
-install_unity_windows() {
-  # The piped empty space is required to prevent the script from hanging indefinitely.
-  # https://serverfault.com/a/932946
-  printf '%s\n' "" | choco install unity-hub
-  printf '%s\n' "PATH=$PATH:/c/Program Files/Unity Hub" >> "$BASH_ENV"
-  
-  source "$BASH_ENV"
-  
-  # shellcheck disable=SC2140
-  "Unity Hub.exe" -- --headless install --version "2021" --module windows-il2cpp --childModules
-}
-
 download_before_script() {
   curl --silent --location \
     --request GET \
@@ -36,7 +24,7 @@ create_manual_activation_file() {
 }
 
 check_license_and_editor_version() {
-  if [ "$OS_NAME" == "windows" ]; then
+  if [ "$PLATFORM" == "windows" ]; then
     # Without this, "grep -P" will not work on Windows.
     export LANG=C.UTF-8
   fi
@@ -108,10 +96,6 @@ resolve_unity_license() {
     exit 1
   fi
 }
-
-if [ "$OS_NAME" == "windows" ]; then
-  install_unity_windows
-fi
 
 # Expand environment name variable parameters.
 readonly unity_username="${!PARAM_UNITY_USERNAME_VAR_NAME}"
