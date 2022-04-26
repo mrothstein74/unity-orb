@@ -184,7 +184,7 @@ jobs:
     #   - image: 'unityci/editor:<<parameters.os>>-<<parameters.editor-version>>-<<parameters.target-platform>>-1'
     machine:
       image: windows-server-2019-cuda:current
-      resource_class: windows.small
+      resource_class: windows.gpu.nvidia.small
       shell: bash
 
     steps:
