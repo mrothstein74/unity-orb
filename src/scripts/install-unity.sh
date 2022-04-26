@@ -3,8 +3,8 @@
 install_unity_windows() {
   # The piped empty space is required to prevent the script from hanging indefinitely.
   # https://serverfault.com/a/932946
-  printf '%s\n' "" | choco install unity-hub --version 3.1.1
-  printf '%s\n' "PATH=$PATH:/c/Program Files/Unity Hub" >> "$BASH_ENV"
+  printf '%s\n' "" | choco install unity-hub --version 2.4.5.20210724
+  printf '%s\n' 'PATH=$PATH:/c/Program Files/Unity Hub' >> "$BASH_ENV"
   
   # shellcheck source=/dev/null
   source "$BASH_ENV"
