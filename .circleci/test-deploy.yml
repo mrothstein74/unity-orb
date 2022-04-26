@@ -180,8 +180,12 @@ jobs:
           Valid values are "editmode", "playmode" and Unity's target builds.
           More information can be found on: https://docs.unity3d.com/Packages/com.unity.test-framework@2.0/manual/reference-command-line.html
 
-    docker:
-      - image: 'unityci/editor:<<parameters.os>>-<<parameters.editor-version>>-<<parameters.target-platform>>-1'
+    # docker:
+    #   - image: 'unityci/editor:<<parameters.os>>-<<parameters.editor-version>>-<<parameters.target-platform>>-1'
+    machine:
+      image: windows-server-2019-cuda:current
+      resource_class: windows.small
+      shell: bash
 
     steps:
       - run:
@@ -212,47 +216,47 @@ workflows:
           test-platform: "playmode"
           filters: *filters
           context: orb-unity-testing
-      - build:
-          name: "build-linux64"
-          step-name: "Build StandaloneLinux64"
-          unity-license-var-name: "ACTIVATION_ULF_ENC"
-          os: "ubuntu"
-          target-platform: "linux-il2cpp"
-          editor-version: "2021.3.0f1"
-          project-path: "Unity2D-Demo-Game-CI-CD/src"
-          build-target: StandaloneLinux64
-          compress: true
-          requires:
-            - test
-          filters: *filters
-          context: orb-unity-testing
-      - build:
-          name: "build-webgl"
-          step-name: "Build WebGL"
-          unity-license-var-name: "ACTIVATION_ULF_ENC"
-          os: "ubuntu"
-          target-platform: "webgl"
-          editor-version: "2021.3.0f1"
-          project-path: "Unity2D-Demo-Game-CI-CD/src"
-          build-target: "WebGL"
-          compress: false
-          requires:
-            - test
-          filters: *filters
-          context: orb-unity-testing
-      - build:
-          name: "build-windows64"
-          step-name: "Build StandaloneWindows64"
-          unity-license-var-name: "ACTIVATION_ULF_ENC"
-          os: "ubuntu"
-          target-platform: "windows-mono"
-          editor-version: "2021.3.0f1"
-          project-path: "Unity2D-Demo-Game-CI-CD/src"
-          build-target: "StandaloneWindows64"
-          requires:
-            - test
-          filters: *filters
-          context: orb-unity-testing
+      # - build:
+      #     name: "build-linux64"
+      #     step-name: "Build StandaloneLinux64"
+      #     unity-license-var-name: "ACTIVATION_ULF_ENC"
+      #     os: "ubuntu"
+      #     target-platform: "linux-il2cpp"
+      #     editor-version: "2021.3.0f1"
+      #     project-path: "Unity2D-Demo-Game-CI-CD/src"
+      #     build-target: StandaloneLinux64
+      #     compress: true
+      #     requires:
+      #       - test
+      #     filters: *filters
+      #     context: orb-unity-testing
+      # - build:
+      #     name: "build-webgl"
+      #     step-name: "Build WebGL"
+      #     unity-license-var-name: "ACTIVATION_ULF_ENC"
+      #     os: "ubuntu"
+      #     target-platform: "webgl"
+      #     editor-version: "2021.3.0f1"
+      #     project-path: "Unity2D-Demo-Game-CI-CD/src"
+      #     build-target: "WebGL"
+      #     compress: false
+      #     requires:
+      #       - test
+      #     filters: *filters
+      #     context: orb-unity-testing
+      # - build:
+      #     name: "build-windows64"
+      #     step-name: "Build StandaloneWindows64"
+      #     unity-license-var-name: "ACTIVATION_ULF_ENC"
+      #     os: "ubuntu"
+      #     target-platform: "windows-mono"
+      #     editor-version: "2021.3.0f1"
+      #     project-path: "Unity2D-Demo-Game-CI-CD/src"
+      #     build-target: "StandaloneWindows64"
+      #     requires:
+      #       - test
+      #     filters: *filters
+      #     context: orb-unity-testing
       - orb-tools/pack:
           filters: *filters
       - orb-tools/publish:
