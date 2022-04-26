@@ -266,9 +266,9 @@ workflows:
           requires:
             - orb-tools/pack
             - test
-            - build-linux64
-            - build-webgl
-            - build-windows64
+            # - build-linux64
+            # - build-webgl
+            # - build-windows64
           context: orb-publishing
           filters:
             branches:
