@@ -185,7 +185,7 @@ jobs:
     machine:
       image: windows-server-2019-cuda:current
       resource_class: windows.gpu.nvidia.medium
-      shell: bash
+      shell: bash.exe
 
     steps:
       - run:
