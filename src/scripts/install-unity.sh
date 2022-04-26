@@ -6,6 +6,7 @@ install_unity_windows() {
   printf '%s\n' "" | choco install unity-hub
   printf '%s\n' "PATH=$PATH:/c/Program Files/Unity Hub" >> "$BASH_ENV"
   
+  # shellcheck source=/dev/null
   source "$BASH_ENV"
   
   # shellcheck disable=SC2140
