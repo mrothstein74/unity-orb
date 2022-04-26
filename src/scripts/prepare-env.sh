@@ -4,10 +4,12 @@ readonly base_dir="${CIRCLE_WORKING_DIRECTORY/\~/$HOME}"
 readonly unity_project_full_path="$base_dir/$PARAM_PROJECT_PATH"
 
 install_unity_windows() {
-  printf '%s\n' "" | choco install -y unity-hub
+  # The piped empty space is required to prevent the script from hanging indefinitely.
+  # https://serverfault.com/a/932946
+  printf '%s\n' "" | choco install unity-hub
 
   # shellcheck disable=SC2140
-  /c/"Program Files"/"Unity Hub"/"Unity Hub.exe" -- --headless install --version "2021" --module windows-il2cpp --childModules
+  /c/"Program Files"/"Unity Hub"/"Unity Hub.exe" -- --headless install --version "2022" --module windows-il2cpp --childModules
 }
 
 download_before_script() {
