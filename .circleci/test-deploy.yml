@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  unity: ericribeiro/unity@dev:<<pipeline.git.revision>>
+  unity: game-ci/unity@dev:<<pipeline.git.revision>>
   orb-tools: circleci/orb-tools@11.1
 
 filters: &filters
