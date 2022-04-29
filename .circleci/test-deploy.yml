@@ -208,14 +208,14 @@ workflows:
       - test:
           name: "test"
           step-name: "Check if the tests run and results are uploaded"
-          unity-license-var-name: "ACTIVATION_ULF_ENC"
+          unity-license-var-name: "UNITY_ENCODED_LICENSE_2021"
           os: "ubuntu"
           target-platform: "linux-il2cpp"
           editor-version: "2021.3.0f1"
           project-path: "Unity2D-Demo-Game-CI-CD/src"
           test-platform: "playmode"
           filters: *filters
-          context: orb-unity-testing
+          context: orb-testing-unity
       # - build:
       #     name: "build-linux64"
       #     step-name: "Build StandaloneLinux64"
