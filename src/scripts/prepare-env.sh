@@ -24,6 +24,11 @@ create_manual_activation_file() {
 }
 
 check_license_and_editor_version() {
+  if [ "$PLATFORM" == "windows" ]; then
+    # Without this, "grep -P" will not work on Windows.
+    export LANG=C.UTF-8
+  fi
+
   local -r unity_project_version="$(grep -oP '(?<=m_EditorVersion: )[^\n]*' $unity_project_full_path/ProjectSettings/ProjectVersion.txt)"
   local -r unity_license_version="$(grep -oP '<ClientProvidedVersion Value\="\K.*?(?="/>)' <<< "$unity_license")"
   local -r unity_editor_version="$(cat $UNITY_PATH/version)"
